@@ -4,6 +4,7 @@ from player import *
 from asteroid import *
 from asteroidfield import *
 from shot import *
+from scoreboard import *
 
 def main():
     print("Starting Asteroids!")
@@ -12,9 +13,9 @@ def main():
 
     # Initialization
     pygame.init()
-    pygame.display.init()
-    pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    font = pygame.font.Font(None, 24)
     display = pygame.display
+    display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     screen = display.get_surface()
     clock = pygame.time.Clock()
     dt = 0
@@ -34,6 +35,8 @@ def main():
     # Player
     Player.containers = (updatables, drawables)
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+    # Scoreboard
+    scoreboard = Scoreboard()
 
     while True:
         # Control FPS
@@ -49,6 +52,7 @@ def main():
         for asteroid in asteroids:
             if asteroid.collision(player):
                 print("Game over!")
+                print(f"Final score is {scoreboard.get_score()}")
                 return
 
         for shot in shots:
@@ -56,13 +60,20 @@ def main():
                 if asteroid.collision(shot):
                     shot.kill()
                     asteroid.split()
-
+                    scoreboard.update_score(10)
+        
         # Draw Screen
         screen.fill(pygame.Color(0,0,0))
         # We iterate drawables manually to avoid using pygames group draw method 
         # which requires additionaly parameters we have not covered yet.
         for drawable in drawables:
             drawable.draw(screen)
+
+        score_surface = font.render(
+            f"Score: {scoreboard.get_score()}",
+            True,
+            (255, 255, 255, 255))
+        screen.blit(score_surface, (0, 0))
 
         display.flip()
 
