@@ -13,7 +13,7 @@ def main():
 
     # Initialization
     pygame.init()
-    font = pygame.font.Font(None, 24)
+    font = pygame.font.Font("fp9b8a.otf", 24)
     display = pygame.display
     display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     screen = display.get_surface()
@@ -76,6 +76,8 @@ def main():
         screen.blit(score_surface, (0, 0))
 
         display.flip()
+
+
 
 
 if __name__ == "__main__":
