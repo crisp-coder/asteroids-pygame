@@ -19,15 +19,22 @@ def main():
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 
     while True:
-        screen.fill(pygame.Color(0,0,0))
-        player.draw(screen)
-        display.flip()
+        # Control FPS
+        dt = clock.tick(60)/1000
 
+        # Handle events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
 
-        dt = clock.tick(60)/1000
+        # Update entities
+        player.update(dt)
+
+        # Draw Screen
+        screen.fill(pygame.Color(0,0,0))
+        player.draw(screen)
+        display.flip()
+
 
 if __name__ == "__main__":
     main()
