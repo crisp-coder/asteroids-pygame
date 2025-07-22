@@ -61,7 +61,7 @@ def main():
                     shot.kill()
                     asteroid.split()
                     scoreboard.update_score(10)
-        
+
         # Draw Screen
         screen.fill(pygame.Color(0,0,0))
         # We iterate drawables manually to avoid using pygames group draw method 
@@ -69,16 +69,15 @@ def main():
         for drawable in drawables:
             drawable.draw(screen)
 
+        # Draw score to screen last.
         score_surface = font.render(
             f"Score: {scoreboard.get_score()}",
             True,
             (255, 255, 255, 255))
         screen.blit(score_surface, (0, 0))
 
+        # Show screen
         display.flip()
-
-
-
 
 if __name__ == "__main__":
     main()
