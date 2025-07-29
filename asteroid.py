@@ -21,7 +21,7 @@ class Asteroid(CircleShape):
         self.kill()
         if self.radius <= ASTEROID_MIN_RADIUS:
             return
-        angle = random.uniform(20, 50) 
+        angle = random.uniform(20, 50)
         new_radius = self.radius - ASTEROID_MIN_RADIUS
         asteroid1 = Asteroid(self.position.x, self.position.y, new_radius)
         asteroid1.velocity = self.velocity.rotate(angle) * 1.2

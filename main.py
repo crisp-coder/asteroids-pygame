@@ -5,6 +5,7 @@ from asteroid import *
 from asteroidfield import *
 from shot import *
 from scoreboard import *
+from collisions import *
 
 def main():
     print("Starting Asteroids!")
@@ -50,22 +51,21 @@ def main():
         # Update entities
         updatables.update(dt)
         for asteroid in asteroids:
-            if asteroid.collision(player):
-                print("Game over!")
-                print(f"Final score is {scoreboard.get_score()}")
+            if triangle_circle_collision(player, asteroid):
+                print(f'Game Over!')
+                print(f'Score: {scoreboard.get_score()}')
                 return
 
         for shot in shots:
             for asteroid in asteroids:
-                if asteroid.collision(shot):
+                if circle_circle_collision(shot, asteroid):
                     shot.kill()
                     asteroid.split()
                     scoreboard.update_score(10)
 
         # Draw Screen
         screen.fill(pygame.Color(0,0,0))
-        # We iterate drawables manually to avoid using pygames group draw method 
-        # which requires additionaly parameters we have not covered yet.
+
         for drawable in drawables:
             drawable.draw(screen)
 
