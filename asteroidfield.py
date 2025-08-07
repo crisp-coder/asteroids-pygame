@@ -5,6 +5,9 @@ from constants import *
 
 
 class AsteroidField(pygame.sprite.Sprite):
+    # The image textrue to use with each asteroid
+    image = None
+
     edges = [
         [
             pygame.Vector2(1, 0),
@@ -35,6 +38,8 @@ class AsteroidField(pygame.sprite.Sprite):
     def spawn(self, radius, position, velocity):
         asteroid = Asteroid(position.x, position.y, radius)
         asteroid.velocity = velocity
+        if self.image:
+            asteroid.setImage(self.image)
 
     def update(self, dt):
         self.spawn_timer += dt

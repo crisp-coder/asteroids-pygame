@@ -11,7 +11,6 @@ def main():
     print("Starting Asteroids!")
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
-
     # Initialization
     pygame.init()
     font = pygame.font.Font("fp9b8a.otf", 24)
@@ -20,6 +19,11 @@ def main():
     screen = display.get_surface()
     clock = pygame.time.Clock()
     dt = 0
+
+    print(f"Loading images...")
+
+    asteroid_img_surface = pygame.image.load("images/asteroid.png")
+    pygame.Surface.convert_alpha(asteroid_img_surface)
 
     # Groups
     updatables = pygame.sprite.Group()
@@ -30,6 +34,7 @@ def main():
     # Asteroid Field
     AsteroidField.containers = (updatables)
     asteroid_field = AsteroidField()
+    asteroid_field.image = asteroid_img_surface
     # Shot
     shots = pygame.sprite.Group()
     Shot.containers = (shots, updatables, drawables)
