@@ -11,7 +11,8 @@ def main():
     print("Starting Asteroids!")
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
-    # Initialization
+
+# Initialization
     pygame.init()
     font = pygame.font.Font("fp9b8a.otf", 24)
     display = pygame.display
@@ -21,26 +22,33 @@ def main():
     dt = 0
 
     print(f"Loading images...")
-
-    asteroid_img_surface = pygame.image.load("images/asteroid.png")
-    pygame.Surface.convert_alpha(asteroid_img_surface)
+    Asteroid.asteroid_small_img = pygame.image.load("images/asteroid_small.png")
+    Asteroid.asteroid_medium_img = pygame.image.load("images/asteroid_medium.png")
+    Asteroid.asteroid_large_img = pygame.image.load("images/asteroid_large.png")
+    pygame.Surface.convert_alpha(Asteroid.asteroid_small_img)
+    pygame.Surface.convert_alpha(Asteroid.asteroid_medium_img)
+    pygame.Surface.convert_alpha(Asteroid.asteroid_large_img)
 
     # Groups
     updatables = pygame.sprite.Group()
     drawables = pygame.sprite.Group()
+
     # Asteroid
     asteroids = pygame.sprite.Group()
     Asteroid.containers = (asteroids, updatables, drawables)
+
     # Asteroid Field
     AsteroidField.containers = (updatables)
     asteroid_field = AsteroidField()
-    asteroid_field.image = asteroid_img_surface
+
     # Shot
     shots = pygame.sprite.Group()
     Shot.containers = (shots, updatables, drawables)
+
     # Player
     Player.containers = (updatables, drawables)
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+
     # Scoreboard
     scoreboard = Scoreboard()
 
@@ -86,5 +94,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 

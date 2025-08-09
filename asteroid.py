@@ -3,6 +3,10 @@ from constants import ASTEROID_MIN_RADIUS
 import random
 
 class Asteroid(CircleShape):
+    asteroid_small_img = None
+    asteroid_medium_img = None
+    asteroid_large_img = None
+
     def __init__(self, x, y, radius):
         super().__init__(x, y, radius)
         self.image = None
@@ -24,10 +28,16 @@ class Asteroid(CircleShape):
             self.radius, 2
             )
         if self.image:
-            screen.blit(self.image, self.position - (18, 16))
+            screen.blit(self.image, self.position - (self.image.get_size()[0]/2, self.image.get_size()[1]/2))
 
     def update(self, dt):
         self.position += self.velocity * dt
+        if self.radius > 2*ASTEROID_MIN_RADIUS:
+            self.image = self.asteroid_large_img
+        elif self.radius > ASTEROID_MIN_RADIUS:
+            self.image = self.asteroid_medium_img
+        else:
+            self.image = self.asteroid_small_img
 
     def split(self):
         self.kill()
